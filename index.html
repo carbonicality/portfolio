@@ -143,25 +143,25 @@
       text-decoration: underline;
       font-weight: 600;
     }
-    .dangers .danger-item {
+    .secondarys .secondary-item {
       display: flex;
       gap: 12px;
       align-items: flex-start;
       margin-bottom: 18px;
     }
-    .danger-item i {
+    .secondary-item i {
       flex-shrink: 0;
       color: #29b6f6;
       width: 24px;
       height: 24px;
     }
-    .danger-item strong {
+    .secondary-item strong {
       display: block;
       font-weight: 600;
       margin-bottom: 4px;
       color: #ffffff;
     }
-    .danger-item p {
+    .secondary-item p {
       font-size: 0.9rem;
       color: #cceeff;
       margin: 0;
@@ -238,7 +238,7 @@
       margin-bottom: 5px;
     }
 
-        .firework-overlay {
+        .fwk-overlay {
     position: fixed;
     z-index: 9999;
     width: 0;
@@ -246,7 +246,7 @@
     pointer-events: none;
   }
 
-  .firework-particle {
+  .fwk-particle {
     position: absolute;
     left: 0;
     top: 0;
@@ -258,11 +258,11 @@
     opacity: 0;
   }
 
-  .firework-overlay.animate .firework-particle {
-    animation: firework-fly 0.7s ease-out forwards;
+  .fwk-overlay.animate .fwk-particle {
+    animation: fwk-fly 0.7s ease-out forwards;
   }
 
-  @keyframes firework-fly {
+  @keyframes fwk-fly {
     0% {
       transform: translate(0, 0);
       opacity: 1;
@@ -273,7 +273,7 @@
     }
   }
 
-    .firework-dim {
+    .fwk-dim {
   position: fixed;
   top: 0;
   left: 0;
@@ -285,7 +285,7 @@
   transition: opacity 0.3s ease;
   pointer-events: none;
 }
-.firework-dim.active {
+.fwk-dim.active {
   opacity: 1;
 }
 
@@ -361,7 +361,7 @@
       konamiIndex++;
       if (konamiIndex === konamiSequence.length) {
         konamiIndex = 0;
-        launchFirework();
+        launchfwk();
       }
     } else {
       keys.forEach(key => key.classList.remove('glow'));
@@ -370,28 +370,30 @@
   });
 </script>
 <script>
-  function launchFirework() {
-  const dim = document.getElementById("firework-dim");
+  function launchfwk() {
+  const dim = document.getElementById("fwk-dim");
   dim.classList.add("active");
+  keys.forEach(key => key.classList.remove('glow'));
+  konamiIndex = 0;
 
   const duration = 4000; 
   const interval = 500;
   const iterations = Math.floor(duration / interval);
   let i = 0;
 
-  const fireworkInterval = setInterval(() => {
-    singleFirework();
+  const fwkInterval = setInterval(() => {
+    singlefwk();
     i++;
     if (i >= iterations) {
-      clearInterval(fireworkInterval);
+      clearInterval(fwkInterval);
       setTimeout(() => dim.classList.remove("active"), 500);
     }
   }, interval);
 }
 
-function singleFirework() {
+function singlefwk() {
   const overlay = document.createElement("div");
-  overlay.className = "firework-overlay";
+  overlay.className = "fwk-overlay";
 
   const xOrigin = Math.random() * window.innerWidth;
   const yOrigin = Math.random() * window.innerHeight * 0.7; 
@@ -402,7 +404,7 @@ function singleFirework() {
   const numParticles = 25 + Math.floor(Math.random() * 10);
   for (let j = 0; j < numParticles; j++) {
     const particle = document.createElement("div");
-    particle.className = "firework-particle";
+    particle.className = "fwk-particle";
 
     const angle = Math.random() * 2 * Math.PI;
     const distance = 100 + Math.random() * 80;
@@ -422,7 +424,7 @@ function singleFirework() {
 
 </script>
 
-<div class="firework-dim" id="firework-dim"></div>
+<div class="fwk-dim" id="fwk-dim"></div>
   <script>
     lucide.createIcons();
   </script>
